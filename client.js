@@ -62,12 +62,14 @@ function individualBonusCalc( employees ){
     qualityBonus = .06;
   } else if( employees[i].reviewRating == 5  ){
     qualityBonus = .10;
-    } // end qualityBonus calculation
-  if( employees[i].salary > 65000 ){
+    } 
+    // end qualityBonus calculation
+  if( parseInt(employees[i].annualSalary) > 65000 ){
     incomeBonusAdjustment = -.01;
   } else {
     incomeBonusAdjustment = 0;
-    } // end incomeBonusAdjustment calculation
+    }
+    // end incomeBonusAdjustment calculation
   totalBonusSum = qualityBonus + seniorityBonus + incomeBonusAdjustment;
   if (totalBonusSum > .13){
     totalBonusSum = .13;
@@ -76,12 +78,12 @@ function individualBonusCalc( employees ){
     totalBonusSum = 0;
   }
   else {
-   } // end totalBonusSum bookending
-  finalBonus = parseInt(employees[i].annualSalary) * totalBonusSum;
+   }
+  // end totalBonusSum bookending
+  finalBonus = employees[i].annualSalary * totalBonusSum;
   totalCompensationDollars = parseInt(employees[i].annualSalary) + finalBonus;
-  }
+
   // here there be monsters - attempting to make a new object
-  for (let i = 0; i < employees.length; i++){
   console.log ({
     name: employees[i].name,
     bonusPercentage: totalBonusSum,
@@ -90,3 +92,5 @@ function individualBonusCalc( employees ){
   })
 }
 }
+
+individualBonusCalc(employees);
