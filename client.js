@@ -42,19 +42,18 @@ const employees = [
 let qualityBonus = 0;
 let seniorityBonus = 0; 
 let incomeBonusAdjustment = 0;
-let totalBonus = 0;
+let totalBonusSum = 0;
+let finalBonus = 0;
+let totalCompensationDollars = 0;
 
 function individualBonusCalc( employees ){
   for (let i = 0; i < employees.length; i++){
     let employeeNumberlength = employees[i].employeeNumber;
       if( employeeNumberlength.length === 4 ){
         seniorityBonus = .05;
-     console.log('Yay I get more money') ;
     } else{
         seniorityBonus = 0;
-    }
-   }
-  for (let i = 0; i < employees.length; i++){
+    } // end seniorityBonus calculation
     if( employees[i].reviewRating <= 2  ){
       qualityBonus = 0;
   } else if( employees[i].reviewRating == 3  ){
@@ -63,23 +62,31 @@ function individualBonusCalc( employees ){
     qualityBonus = .06;
   } else if( employees[i].reviewRating == 5  ){
     qualityBonus = .10;
-    }
-  }
-for (let i = 0; i < employees.length; i++){
+    } // end qualityBonus calculation
   if( employees[i].salary > 65000 ){
     incomeBonusAdjustment = -.01;
   } else {
     incomeBonusAdjustment = 0;
-    }
+    } // end incomeBonusAdjustment calculation
+  totalBonusSum = qualityBonus + seniorityBonus + incomeBonusAdjustment;
+  if (totalBonusSum > .13){
+    totalBonusSum = .13;
   }
-  totalBonusSum(qualityBonus,seniorityBonus, incomeBonusAdjustment);
+  else if (totalBonusSum < 0){
+    totalBonusSum = 0;
+  }
+  else {
+   } // end totalBonusSum bookending
+  finalBonus = parseInt(employees[i].annualSalary) * totalBonusSum;
+  totalCompensationDollars = parseInt(employees[i].annualSalary) + finalBonus;
+  }
+  // here there be monsters - attempting to make a new object
+  for (let i = 0; i < employees.length; i++){
+  console.log ({
+    name: employees[i].name,
+    bonusPercentage: totalBonusSum,
+    totalCompensation: totalCompensationDollars,
+    totalBonus: Math.round(finalBonus)
+  })
 }
-
-
-function totalBonusSum( bonusA, bonusB, bonusC ){
-  totalBonus = bonusA + bonusB + bonusC;
 }
-
-
-
-console.log(individualBonusCalc(employees ));
